@@ -141,6 +141,8 @@
           <jdbcUser>sa</jdbcUser>
           <jdbcPassword></jdbcPassword>
           <packageName>com.github.emalock3.querydsl</packageName>
+          <exportBeans>true</exportBeans>
+          <targetFolder>${project.basedir}/src/main/java</targetFolder>
         </configuration>
         <dependencies>
           <dependency>
