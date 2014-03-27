@@ -8,6 +8,7 @@ import com.mysema.query.sql.SQLQuery;
 import com.mysema.query.sql.SQLTemplates;
 import com.mysema.query.sql.dml.SQLDeleteClause;
 import com.mysema.query.sql.dml.SQLInsertClause;
+import com.mysema.query.types.Projections;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -77,7 +78,10 @@ public class QEmployeeTest {
                     .addBatch();
         });
         insertEmp.execute();
-        query().from(com).list(com.all()).stream().forEach(System.out::println);
+        query().from(com).list(Projections.bean(Company.class, com.all()))
+                .stream()
+                .map(c -> String.format("%d: %s", c.getId(), c.getName()))
+                .forEach(System.out::println);
         CloseableIterator<Tuple> iterate = query().from(emp)
                 .leftJoin(dept).on(dept.id.eq(emp.departmentId))
                 .leftJoin(com).on(com.id.eq(dept.companyId))
