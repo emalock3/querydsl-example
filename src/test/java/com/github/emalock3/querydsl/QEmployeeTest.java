@@ -77,7 +77,7 @@ public class QEmployeeTest {
                     .addBatch();
         });
         insertEmp.execute();
-        new SQLQuery(conn, configuration).from(com).list(com.all()).stream().forEach(System.out::println);
+        query().from(com).list(com.all()).stream().forEach(System.out::println);
         CloseableIterator<Tuple> iterate = query().from(emp)
                 .leftJoin(dept).on(dept.id.eq(emp.departmentId))
                 .leftJoin(com).on(com.id.eq(dept.companyId))
